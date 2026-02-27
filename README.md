@@ -1,4 +1,4 @@
-# PhD Dungeon: The Research Grind
+# PhD Dungeon
 
 A terminal-based Rogue-like dungeon crawler built in pure Python, themed around the grueling (and often recursive) reality of a PhD in a Physics Lab.
 
