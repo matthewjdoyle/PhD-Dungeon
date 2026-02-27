@@ -2,6 +2,8 @@
 
 A terminal-based Rogue-like dungeon crawler built in pure Python, themed around the grueling (and often recursive) reality of a PhD in a Physics Lab.
 
+![PhD Dungeon Gameplay](PhD%20Dungeon%20Screenshot%201.png)
+
 ## How to Run
 
 ### Prerequisites
@@ -11,7 +13,7 @@ A terminal-based Rogue-like dungeon crawler built in pure Python, themed around 
 
 ### Execution
 
-The project is modularized into a Python package. To play the game, run the entry point script from the root directory:
+The project is modularised into a Python package. To play the game, run the entry point script from the root directory:
 
 ```bash
 python main.py
@@ -25,7 +27,7 @@ python main.py
   - `entities.py`: Logic for the Player and autonomous NPC AI.
   - `map_gen.py`: Procedural dungeon generation algorithms.
   - `items.py`: Thematic item systems (Espresso, Grants).
-  - `constants.py`: Centralized configuration and ANSI color definitions.
+  - `constants.py`: Centralised configuration and ANSI color definitions.
 
 ## Controls
 
@@ -40,13 +42,13 @@ This project was built to demonstrate a highly portable, dependency-free Python 
 ### Core Technical Features:
 
 - **Zero Dependencies**: Written using only the Python standard library. No `curses` or external packages required, ensuring it runs out-of-the-box on Windows via `msvcrt`.
-- **Procedural Generation**: Utilizes a customized Room-and-Corridor algorithm. Each "Research Week" (level) is uniquely generated with a connected graph of nodes, ensuring every playthrough is different.
+- **Procedural Generation**: Utilises a customized Room-and-Corridor algorithm. Each "Research Week" (level) is uniquely generated with a connected graph of nodes, ensuring every playthrough is different.
 - **Entity Component System (Simplified)**: Entities (Player, Undergrads, Supervisors) are managed through a class-based system that handles state, stats scaling, and specific AI behaviors.
 - **Autonomous NPC AI**:
-  - **Lost Undergrads**: Stochastic "Random Walk" behavior.
+  - **Lost Undergrads**: Stochastic "Random Walk" behaviour.
   - **Post-docs**: State-based "Methodical Pacing" algorithm.
   - **Supervisors**: Range-limited "A\* Pathfinding" (Greedy-style) to track and engage the player.
-- **ANSI Rendering Engine**: A custom-built rendering loop that leverages ANSI escape codes for colorized output and screen refreshing, optimized to minimize flicker in a standard terminal.
+- **ANSI Rendering Engine**: A custom-built rendering loop that leverages ANSI escape codes for colorized output and screen refreshing, optimised to minimise flicker in a standard terminal.
 - **Event Dispatcher**: A lightweight random event system that triggers mid-turn effects, affecting player state and persistence.
 
 ---
