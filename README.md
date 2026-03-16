@@ -1,55 +1,82 @@
 # PhD Dungeon
 
-A terminal-based Rogue-like dungeon crawler built in pure Python, themed around the grueling (and often recursive) reality of a PhD in a Physics Lab.
+A terminal-based Rogue-like dungeon crawler built in Python, themed around the grueling (and often recursive) reality of a PhD in a Physics Lab. Features true-color rendering, field-of-view lighting, smart Unicode walls, and a paneled UI — all running flicker-free in your terminal.
 
-![PhD Dungeon Gameplay](PhD%20Dungeon%20Screenshot%201.png)
+![PhD Dungeon](PhD%20Dungeon%20Screenshot%201.png)
+![PhD Dungeon Gameplay](PhD%20Dungeon%20Screenshot%202.png)
 
 ## How to Run
 
 ### Prerequisites
 
 - Python 3.6 or higher.
-- A terminal that supports ANSI escape codes (Windows Terminal, PowerShell, CMD, or any Unix-based terminal).
+- A true-color terminal (Windows Terminal, VS Code terminal, or any modern Unix terminal).
+- Install the single dependency:
+
+```bash
+pip install blessed
+```
 
 ### Execution
 
-The project is modularised into a Python package. To play the game, run the entry point script from the root directory:
+Run the entry point script from the root directory:
 
 ```bash
 python main.py
 ```
 
-### Project Structure
-
-- `main.py`: The entry point for the application.
-- `phd_dungeon/`: The core package containing game logic.
-  - `engine.py`: Orchestrates the game loop, events, and rendering.
-  - `entities.py`: Logic for the Player and autonomous NPC AI.
-  - `map_gen.py`: Procedural dungeon generation algorithms.
-  - `items.py`: Thematic item systems (Espresso, Grants).
-  - `constants.py`: Centralised configuration and ANSI color definitions.
-
 ## Controls
 
-- **W / A / S / D**: Movement and interaction (bumping into NPCs to "explain physics").
-- **>**: Submit your research at the Portal (`E`) to advance to the next week.
+- **W / A / S / D**: Movement and interaction (bump into NPCs to "explain physics").
+- **>**: Descend the stairs (▼) to advance to the next research week.
 - **Q**: Quit the lab (and your PhD).
+
+## Entities
+
+| Glyph | Name | Behaviour |
+|-------|------|-----------|
+| ☺ | PhD Student (You) | Player-controlled. Armed with peer-reviewed facts. |
+| ☻ | Lost Undergrad | Wanders randomly. Asks dumb questions. |
+| † | Burned-out Post-doc | Methodical pacer. Talks about the job market. |
+| ☠ | The Supervisor | Hunts you down from 8 tiles away. Asks for results. |
+
+## Items
+
+| Glyph | Name | Effect |
+|-------|------|--------|
+| ♥ | Espresso | Restores 10 Sanity. |
+| ♦ | Research Grant | +3 IQ (attack power). |
+
+## Project Structure
+
+```
+main.py                  Entry point
+phd_dungeon/
+    engine.py            Game loop, input handling, message log, combat
+    renderer.py          Double-buffered blessed renderer, panels, visual effects
+    fov.py               Symmetric shadowcasting field-of-view (8 octants)
+    ui.py                Title screen, death screen, level transitions
+    entities.py          Player and autonomous NPC AI
+    map_gen.py           Procedural dungeon generation with smart wall glyphs
+    items.py             Thematic item systems (Espresso, Grants)
+    constants.py         RGB palette, Unicode glyphs, layout configuration
+```
 
 ## Tech Stack & Architecture
 
-This project was built to demonstrate a highly portable, dependency-free Python application that handles real-time input and rendering in a CLI environment.
+### Core Technical Features
 
-### Core Technical Features:
-
-- **Zero Dependencies**: Written using only the Python standard library. No `curses` or external packages required, ensuring it runs out-of-the-box on Windows via `msvcrt`.
-- **Procedural Generation**: Utilises a customized Room-and-Corridor algorithm. Each "Research Week" (level) is uniquely generated with a connected graph of nodes, ensuring every playthrough is different.
-- **Entity Component System (Simplified)**: Entities (Player, Undergrads, Supervisors) are managed through a class-based system that handles state, stats scaling, and specific AI behaviors.
+- **True-Color Rendering**: 24-bit RGB foreground and background colors via [blessed](https://pypi.org/project/blessed/), with a dark academic dungeon palette. Double-buffered diff-flush renderer writes only changed cells — zero flicker.
+- **Field-of-View**: Symmetric shadowcasting across 8 octants with radius-based light falloff. Three visibility states: visible (full color + entities), explored (dimmed, no entities), and unexplored (void).
+- **Smart Unicode Walls**: After dungeon generation, each wall tile's glyph is computed from a 4-neighbor bitmask, selecting from 16 box-drawing characters (│─┌┐└┘├┤┬┴┼ etc.) for connected walls.
+- **Paneled UI**: Box-drawn panels for the map viewport, status sidebar (HP bar, nearby entities, legend), and a color-coded scrolling message log.
+- **Procedural Generation**: Room-and-corridor algorithm. Each "Research Week" (level) is uniquely generated with connected rooms, ensuring every playthrough is different.
 - **Autonomous NPC AI**:
-  - **Lost Undergrads**: Stochastic "Random Walk" behaviour.
-  - **Post-docs**: State-based "Methodical Pacing" algorithm.
-  - **Supervisors**: Range-limited "A\* Pathfinding" (Greedy-style) to track and engage the player.
-- **ANSI Rendering Engine**: A custom-built rendering loop that leverages ANSI escape codes for colorized output and screen refreshing, optimised to minimise flicker in a standard terminal.
-- **Event Dispatcher**: A lightweight random event system that triggers mid-turn effects, affecting player state and persistence.
+  - **Lost Undergrads**: Stochastic random walk.
+  - **Post-docs**: State-based methodical pacing algorithm.
+  - **Supervisors**: Greedy pursuit with extended detection range.
+- **Combat Visual Feedback**: Hit flashes (white), player damage flashes (red), and critical hit effects rendered through a visual events queue.
+- **Event Dispatcher**: Random mid-turn events (Reviewer #2 rejections, free pizza, working pipettes) that affect player state.
 
 ---
 
