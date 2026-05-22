@@ -1,6 +1,6 @@
 # PhD Dungeon
 
-A terminal-based Rogue-like dungeon crawler built in Python, themed around the grueling (and often recursive) reality of a PhD in a Physics Lab. Features true-color rendering, field-of-view lighting, smart Unicode walls, and a paneled UI — all running flicker-free in your terminal.
+A terminal-based Rogue-like dungeon crawler built in Python, themed around the gruelling (and often recursive) reality of a PhD in a Physics Lab. Features true-colour rendering, field-of-view lighting, smart Unicode walls, and a panelled UI – all running flicker-free in your terminal.
 
 ![PhD Dungeon](PhD%20Dungeon%20Screenshot%201.png)
 ![PhD Dungeon Gameplay](PhD%20Dungeon%20Screenshot%202.png)
@@ -10,7 +10,7 @@ A terminal-based Rogue-like dungeon crawler built in Python, themed around the g
 ### Prerequisites
 
 - Python 3.6 or higher.
-- A true-color terminal (Windows Terminal, VS Code terminal, or any modern Unix terminal).
+- A true-colour terminal (Windows Terminal, VS Code terminal, or any modern Unix terminal).
 - Install the single dependency:
 
 ```bash
@@ -66,10 +66,10 @@ phd_dungeon/
 
 ### Core Technical Features
 
-- **True-Color Rendering**: 24-bit RGB foreground and background colors via [blessed](https://pypi.org/project/blessed/), with a dark academic dungeon palette. Double-buffered diff-flush renderer writes only changed cells — zero flicker.
-- **Field-of-View**: Symmetric shadowcasting across 8 octants with radius-based light falloff. Three visibility states: visible (full color + entities), explored (dimmed, no entities), and unexplored (void).
-- **Smart Unicode Walls**: After dungeon generation, each wall tile's glyph is computed from a 4-neighbor bitmask, selecting from 16 box-drawing characters (│─┌┐└┘├┤┬┴┼ etc.) for connected walls.
-- **Paneled UI**: Box-drawn panels for the map viewport, status sidebar (HP bar, nearby entities, legend), and a color-coded scrolling message log.
+- **True-Colour Rendering**: 24-bit RGB foreground and background colours via [blessed](https://pypi.org/project/blessed/), with a dark academic dungeon palette. Double-buffered diff-flush renderer writes only changed cells – zero flicker.
+- **Field-of-View**: Symmetric shadowcasting across 8 octants with radius-based light falloff. Three visibility states: visible (full colour + entities), explored (dimmed, no entities), and unexplored (void).
+- **Smart Unicode Walls**: After dungeon generation, each wall tile's glyph is computed from a 4-neighbour bitmask, selecting from 16 box-drawing characters (│─┌┐└┘├┤┬┴┼ etc.) for connected walls.
+- **Panelled UI**: Box-drawn panels for the map viewport, status sidebar (HP bar, nearby entities, legend), and a colour-coded scrolling message log.
 - **Procedural Generation**: Room-and-corridor algorithm. Each "Research Week" (level) is uniquely generated with connected rooms, ensuring every playthrough is different.
 - **Autonomous NPC AI**:
   - **Lost Undergrads**: Stochastic random walk.
